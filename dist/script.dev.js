@@ -63,6 +63,13 @@ app.controller("myController", function ($scope, $http) {
 
   $scope.hidePopover = function () {
     $scope.popoverIsVisible = false;
+  }; // for the drop down in the segment
+
+
+  $scope.IsVisible = false;
+
+  $scope.ShowHide = function () {
+    $scope.IsVisible = $scope.IsVisible ? false : true;
   };
 });
 app.config(function ($routeProvider) {
