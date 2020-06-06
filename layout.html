@@ -1,0 +1,177 @@
+<div style="display: flex; flex-wrap: wrap;" ng-controller="myController">
+    <div ng-repeat="data in api" style="
+      height: 300px;
+      width: 400px;
+      border-style: groove;
+      flex: 1 0 21%;
+      margin: 5px;
+    ">
+        <div style="
+        width: 100%;
+        height: 40px;
+        line-height: 36px;
+        text-align: center;
+        text-transform: capitalize;
+        font-size: 15px;
+        color: #444444;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      ">
+            {{data.emailCampaignName}}
+        </div>
+        <div style="
+        width: 100%;
+        text-align: center;
+        padding-top: 6px;
+        padding-bottom: 12px;
+      ">
+            Scheduled On
+        </div>
+        <div class="small-block" style="
+        display: table;
+        position: relative;
+        width: 70%;
+        max-width: 100px;
+        margin: 0 auto;
+        height: 70px;
+        border: 1px solid #e2dede;
+      ">
+            <div style="
+          display: table-cell;
+          vertical-align: middle;
+          height: 100%;
+          position: relative;
+          text-align: center;
+          color: #444444;
+        ">
+                {{data.scheduledDate}}
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div ng-if="edited(data.status)" class="report" style="width: 100%;">
+                <a href="#/edit">
+                    <div class="view" style="
+              background-color: #2bacb1;
+              border: 3px solid #e2dede;
+              transition: width 1s ease-in-out;
+              cursor: pointer;
+              width: 70px;
+              height: 50px;
+              border-radius: 50px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+                        <i class="fa fa-pencil-square-o"></i>
+                    </div>
+                </a>
+
+                <div style="
+            width: 100%;
+            text-align: center;
+            padding-top: 6px;
+            padding-bottom: 12px;
+          ">
+                    Edit
+                </div>
+            </div>
+            <div class="report" style="width: 100%;">
+                <div class="view" style="
+            background-color: #2bacb1;
+            border: 3px solid #e2dede;
+            transition: width 1s ease-in-out;
+            cursor: pointer;
+            width: 70px;
+            height: 50px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          ">
+                    <img ng-src="{{image}}" />
+                </div>
+
+                <div style="
+            width: 100%;
+            text-align: center;
+            padding-top: 6px;
+            padding-bottom: 12px;
+          ">
+                    Reports
+                </div>
+            </div>
+            <div ng-if="edited(data.status)" class="report" style="width: 100%;">
+                <a href="#/email">
+                    <div class="view" style="
+              background-color: #2bacb1;
+              border: 3px solid #e2dede;
+              transition: width 1s ease-in-out;
+              cursor: pointer;
+              width: 70px;
+              height: 50px;
+              border-radius: 50px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+                        <i class="fa fa-pencil-square"></i>
+                    </div>
+                </a>
+
+                <div style="
+            width: 100%;
+            text-align: center;
+            padding-top: 6px;
+            padding-bottom: 12px;
+          ">
+                    Edit Template
+                </div>
+            </div>
+        </div>
+
+        <div style="
+        width: 100%;
+        height: 40px;
+        border-top: 1px solid #e3e8ed;
+        padding: 0px 5px;
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-end;
+      ">
+            <a href="#/clone"><i title="clone" class="fa fa-clone"></i></a>
+            <a href="#/preview-email"><i title="search" class="fa fa-search-plus"></i
+      ></a>
+            <a href="#/email"><i title="send" class="fa fa-paper-plane"></i></a>
+            <a ng-mouseleave="hidePopover()">
+                <i ng-mouseover="showPopover()" title="share" class="fa fa-share-alt"></i>
+                <!-- <popup class="ng-isolate-scope" ng-show="popoverIsVisible"></popup> -->
+            </a>
+            <i title="delete" class="fa fa-trash" ng-click="deleteCampaign(data.emailCampaignId);"></i>
+        </div>
+    </div>
+    <div ng-show="popoverIsVisible" style="position: absolute; top: 180px; left: 200px; z-index: 100;">
+        <table style="
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 15%;
+      ">
+            <tr>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
+                    Facebook
+                </th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
+                    Google
+                </th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
+                    Google +
+                </th>
+            </tr>
+        </table>
+    </div>
+</div>
