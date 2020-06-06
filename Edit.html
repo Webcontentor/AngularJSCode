@@ -1,0 +1,12 @@
+<!-- grid html -->
+    <div ng-grid="gridOptions" class="gridStyle"></div>
+<!-- login html -->
+Email:<input type="text"  ng-model="email.Email" required />
+    Password:<input type="text" ng-model="password.Password" required />
+    <input type="submit" value="submit" ng-disabled="submitForm.$invalid" ng-click="validate()" />
+   <!-- fileupload  -->
+   <form ng-controller = "myCtrl">
+    <input type = "file" file-model="files" multiple/>
+    <button ng-click = "uploadFile()">upload me</button>
+    <li ng-repeat="file in files">{{file.name}}</li>
+ </form>

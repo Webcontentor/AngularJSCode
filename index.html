@@ -1,0 +1,73 @@
+<html ng-app="myApp">
+  <head lang="en">
+    <meta charset="utf-8" />
+    <title>yavun demo</title>
+    <link data-require="ng-grid@2.0.14" data-semver="2.0.14" rel="stylesheet" href="https://cdn.rawgit.com/angular-ui/ng-grid/v2.0.14/ng-grid.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script data-require="jquery@*" data-semver="2.2.0" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script data-require="ng-grid@2.0.14" data-semver="2.0.14" src="https://cdn.rawgit.com/angular-ui/ng-grid/v2.0.14/build/ng-grid.js"></script>
+    <script data-require="angular.js@*" data-semver="1.3.5" src="https://code.angularjs.org/1.3.5/angular.js"></script>
+    <script data-require="angular-route@*" data-semver="1.3.5" src="https://code.angularjs.org/1.3.5/angular-route.js"></script>
+      <script src="edit.pop.js"> </script>
+    <style>
+      .gridStyle {
+        height: 500px
+      }
+    </style>
+    <script>
+      var app = angular.module('myApp', ['ngGrid', 'ngRoute']);
+      app.controller('MyCtrl', function($scope,$http, $window) {
+
+        $scope.myData = [  
+        ];
+        $http.get("https://api.yavun.com/api/1/emailcampaign/").then(function (result) {
+         $scope.myData = result.data;
+    });
+        $scope.gridOptions = {
+          data: 'myData',
+          columnDefs: [
+           {field: 'emailCampaignName'},
+           {field: 'scheduledDate',enableFilterimg:false},
+           { field: 'Action',cellTemplate:'<a href="" ng-click="deleteRow(row)">Delete </a>'},
+            {cellTemplate:'<a href="#/test" >Edit </a>'},   
+        ]
+        };
+        $scope.deleteRow = function(row){
+        if(confirm('sure to delete?'))
+          $scope.myData.splice($scope.myData.indexOf(row.entity), 1);
+};
+// $scope.deleteRow = function(emailCampaignDelete) {
+//         if (confirm("Do you really want to delete the campaign")) {
+//           $scope.myData.splice($scope.myData.indexOf(emailCampaignDelete), 1);
+//             $http({
+//                 method: 'DELETE',
+//                 url: 'https://api.yavun.com/api/1/emailcampaign/' + emailCampaignDelete
+//             }).then(function successCallback(result) {
+//                     alert('Campiagn Deleted Succesfully');
+//                     console.log("Campaign is Deleted");
+//                 },
+//                 function errorMSg(result) {
+//                     alert("Error Occured");
+//                 });
+//         }
+
+//     };
+      });
+      app.config(function($routeProvider){
+          $routeProvider
+        .when('/Edit', {
+            templateUrl :'Edit.html'
+          
+        })
+        .when('/test', {
+            templateUrl :'test.html'
+          
+        })
+        });
+   </script>
+  </head>
+  <body ng-controller="MyCtrl" >
+    <ng-view></ng-view>
+  </body>
+
+</html>
