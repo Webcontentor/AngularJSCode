@@ -1,7 +1,31 @@
 'use strict';
-var app = angular.module("my-app", ['ngRoute']);
+var app = angular.module("my-app", ['ngRoute', 'ui.grid', 'ui.grid.pagination']);
 
 app.controller("myController", function($scope, $http) {
+    var success = function(response) {
+        var data = response.data;
+        $scope.api = data;
+    }
+    $http({
+        method: 'GET',
+        url: 'https://api.yavun.com/api/1/email/list/get'
+    }).then(success);
+    $http({
+        method: 'GET',
+        url: 'https://api.yavun.com/api/1/segmentWithRecipientFilterGet?ageMax=&ageMin=&city=&click=false&company=&country=&email=&exclude=false&listId=616&mobile=&name=&open=false&pageno=1&pagesize=100&segmentId=0&state=&title=&zip='
+    }).then(function success(response) {
+        var data = response.data;
+        $scope.gridOptions.data = data[1].query;
+    });
+
+    $scope.gridOptions = {
+        columnDefs: [
+            { name: 'firstName' },
+            { name: 'lastName' },
+            { name: 'email' }
+        ]
+    }
+
     var successCallback = function(response) {
         $scope.api = response.data;
         $scope.image = "https://app.yavun.com/app/images/reports.png";
@@ -12,6 +36,7 @@ app.controller("myController", function($scope, $http) {
         url: "https://api.yavun.com/api/1/EmailCampaign?campaignId=0&dateType=latest&emailTypeId=1&enddate=&searchBy=&segmentId=0&startdate=&status=&userType=All",
     }).then(successCallback);
 
+    // for deleting the api in emails
     $scope.deleteCampaign = function(emailCampaignDelete) {
         if (confirm("Do you really want to delete the campaign")) {
             $http({
@@ -87,3 +112,35 @@ app.directive('removeOnClick', function() {
     }
 
 });
+// creating the directive for the dropdown in the grid
+
+app.directive('dropdown', function() {
+    // link:function(scope){
+    // some code here
+    // }
+    return {
+        restrict: "EA",
+        templateUrl: './dropdown.html'
+    }
+});
+
+// passing static data for checking the grid data
+
+// function gridCtrl() {
+//     this.myData = [{
+//             firstName: "",
+//             lastName: "",
+//             email: ''
+//         },
+//         {
+//             firstName: "",
+//             lastName: "",
+//             email: ''
+//         },
+//         {
+//             firstName: "",
+//             lastName: "",
+//             email: ''
+//         }
+//     ];
+// }

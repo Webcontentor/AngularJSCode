@@ -146,12 +146,12 @@
             <a href="#/email"><i title="send" class="fa fa-paper-plane"></i></a>
             <a ng-mouseleave="hidePopover()">
                 <i ng-mouseover="showPopover()" title="share" class="fa fa-share-alt"></i>
-                <!-- <popup class="ng-isolate-scope" ng-show="popoverIsVisible"></popup> -->
+                <popup class="ng-isolate-scope" ng-show="popoverIsVisible"></popup>
             </a>
             <i title="delete" class="fa fa-trash" ng-click="deleteCampaign(data.emailCampaignId);"></i>
         </div>
     </div>
-    <div ng-show="popoverIsVisible" style="position: absolute; top: 180px; left: 200px; z-index: 100;">
+    <!-- <div ng-show="popoverIsVisible" style="position: absolute; top: 180px; left: 200px; z-index: 100;">
         <table style="
         font-family: arial, sans-serif;
         border-collapse: collapse;
@@ -173,5 +173,5 @@
                 </th>
             </tr>
         </table>
-    </div>
+    </div> -->
 </div>
